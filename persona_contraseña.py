@@ -16,6 +16,15 @@ class persona:
         self.genero= genero
         self.peso = peso
         self.altura = altura
+
+        # Verificar si el usuario quiere contraseña
+        seguridad = input("Escriba SI, si desea obtener una contrasena, de lo contrario escriba NO")
+        if (seguridad == "SI"):
+            self.contrasena = contrasena()
+        else:
+            self.contrasena = None
+        
+
     # Metodo para calcular el IMC
     def imc(self):
         imc = self.peso / (self.altura**2)
@@ -29,23 +38,33 @@ class persona:
             print(f"{self.nombre} no es mayor de edad\n")
 
 
-class contraseña:
+class contrasena:
     def __init__(self):
         # Lista de las contraseñas del usuario
-        self.contraseñas = []
+        self.contrasenas = []
 
     # Metodo para generar contraseñas aleatorias
-    def generar_contraseña(self):
-        contraseña = ""
+    def generar_contrasena(self):
+        contrasena = ""
         for i in range (10):
-            contraseña +=random.choice(caracteres)
+            contrasena +=random.choice(caracteres)  
 
-        print(f"Su contraseña de usuario es: {contraseña}\n")
-        estado_contraseña = input("Escriba SI para guardarla o por el contrario escriba NO para desecharla")
-        if (estado_contraseña == "SI"):
-            self.contraseñas.append(contraseña)
+        # Revisa si la contraseña cumple con los parametros 
+        mayuscula = any(c.islower() for c in contrasena)
+        minuscula = any(c.isupper() for c in contrasena)
+        numero = any(c.isdigit() for c in contrasena)
+        
+        if (minuscula & mayuscula & numero ):
+            verificacion = True
+        else:
+            verificacion = False
+
+        print(f"Su contrasena de usuario es: {contrasena}\n")
+        estado_contrasena = input("Escriba SI para guardarla o por el contrario escriba NO para desecharla")
+        if (estado_contrasena == "SI"):
+            self.contrasenas.append(contrasena)
 
 
 
 if __name__ == "__main__":
-    
+    personas = []
